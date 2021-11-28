@@ -22,7 +22,7 @@ export function handler(event) {
   let { name, email, message } = data
   let mailOptions = {
     from: `${name} <${email}>`,
-    to: process.env.MY_EMAIL_ADDRESS,
+    to: "ayan@hotmail.com",
     replyTo: email,
     text: `${message}`,
   }
