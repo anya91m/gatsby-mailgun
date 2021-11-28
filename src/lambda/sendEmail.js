@@ -16,6 +16,7 @@ const Mailgun = require("mailgun.js")
 const mailgun = new Mailgun(formData)
 const mg = mailgun.client({ username: "api", key: process.env.MAILGUN_API_KEY })
 
+console.log(process.env.MAILGUN_API_KEY)
 // Netlify function
 exports.handler = async event => {
   const data = JSON.parse(event.body)
