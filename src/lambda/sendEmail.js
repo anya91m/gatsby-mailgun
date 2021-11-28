@@ -7,9 +7,6 @@ const headers = {
   "Access-Control-Allow-Headers": "Content-Type",
 }
 
-const successCode = 200
-const errorCode = 400
-
 // connect to mailgun API
 const formData = require("form-data")
 const Mailgun = require("mailgun.js")
@@ -28,20 +25,19 @@ exports.handler = async event => {
     text: `${message}`,
   }
 
-  // Our Mailgun code
-  mg.messages().send(mailOptions, function (error, body) {
-    if (error) {
-      callback(null, {
-        errorCode,
-        headers,
-        body: JSON.stringify(error),
-      })
-    } else {
-      callback(null, {
-        successCode,
-        headers,
-        body: JSON.stringify(body),
-      })
+  try {
+    await mg.messages().send(mailOptions)
+
+    return {
+      statusCode: 202,
+      body: "Message sent",
     }
-  })
+  } catch (error) {
+    const statusCode = typeof error.code === "number" ? error.code : 500
+
+    return {
+      statusCode,
+      body: error.message,
+    }
+  }
 }
