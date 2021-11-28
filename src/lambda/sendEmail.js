@@ -11,10 +11,8 @@ const successCode = 200
 const errorCode = 400
 
 // connect to mailgun API
-const formData = require("form-data")
-const Mailgun = require("mailgun.js")
-const mailgun = new Mailgun(formData)
-const mg = mailgun.client({
+const mailgun = require("mailgun.js")
+const mg = mailgun({
   apiKey: process.env.MAILGUN_API_KEY,
   domain: process.env.MAILGUN_DOMAIN,
 })
