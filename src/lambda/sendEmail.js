@@ -1,6 +1,14 @@
 require("dotenv").config({
-  path: `.env${process.env.NODE_ENV}`,
+  path: `.env.${process.env.NODE_ENV}`,
 })
+
+const headers = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "Content-Type",
+}
+
+const successCode = 200
+const errorCode = 400
 
 // connect to mailgun API
 const formData = require("form-data")
@@ -10,13 +18,6 @@ const mg = mailgun.client({
   apiKey: process.env.MAILGUN_API_KEY,
   domain: process.env.MAILGUN_DOMAIN,
 })
-
-const headers = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "Content-Type",
-}
-const successCode = 200
-const errorCode = 400
 
 // Netlify function
 export function handler(event, context, callback) {
